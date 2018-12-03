@@ -1,7 +1,7 @@
-# Project Name
-**Authors**: Jhon Doe (jd2545), Mark Smith (ms4568)
+# StreetTrees!
+**Authors**: Tianheng Wang (tw1701)
 
-Group X (Online: Group Y) 
+Group 22
 
 ![Screenhot](screenshot.jpg)
 
