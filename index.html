@@ -1,12 +1,72 @@
 <html>
     <head>
-        <title>Storytelling project</title>
+        <title>StreetTrees!</title>
         <script src="d3.js"></script>
+        <style>
+            svg {
+                border: 1px solid black;
+                width: 800px;
+                height: 800px;
+            }
+        </style>
     </head>
     <body>
-        <div>My amazing page will goes here</div>
+        <figure>
+            <svg id="density"></svg>
+            <figcaption>Tree Density: number of alive trees divided by the area of tract for each census tract</figcaption>
+        </figure>
     </body>
     <script>
-        console.log(d3);
+        let numbers;
+        let tracts;
+        loadData().then(showData);
+        width = 800;
+        
+        function loadData() {
+            return Promise.all([
+                d3.json("data/tracts.geo.json"),
+                d3.csv("data/numbers.csv")
+            ]).then(datasets => {
+                tracts = datasets[0];
+                numbers = datasets[1];
+            });
+        }
+        function showData() {
+            let container = d3.select("#density");
+            let projection = d3.geoMercator();
+            projection.scale(width * 100)
+                .center([-73.98, 40.71])
+                .translate([width / 2, width / 2]);
+            let path = d3.geoPath(projection);
+            
+            // Set an array of diverging colors
+            var color = d3.scaleLinear()
+                .domain([0, 100])
+                .range(["rgb(244, 209, 102)", "rgb(20, 108, 54)"]);
+            
+            console.log(tracts.features[2])
+            console.log(numbers[2])
+            
+            container.selectAll("path").data(tracts.features)
+                .enter().append("path")
+                .attr("d", path) // Use the path generator to draw each tract
+                .attr("stroke", "#000")
+                .attr("stroke-width", width / 2500)
+                .attr("fill", (d, i) => {
+                    // Find the record of this tract
+                    numbersRow = numbers.find(e => {
+                        return e.boro_ct == d.properties.boro_ct2010;
+                    });
+                    // If not found, leave it gray
+                    if (numbersRow === undefined) {
+                        return "#ddd";
+                    }
+                    number = parseFloat(numbersRow.Fair) + parseFloat(numbersRow.Good) + parseFloat(numbersRow.Poor);
+                    density = number / parseFloat(d.properties.shape_area);
+                    // Set color accoring to the density. The max of density is 0.000265
+                    // A 0.75 exponent is set so that there will be more green (data near 1)
+                    return color(Math.floor(Math.pow(density / 0.000265, 0.75)  * 100));
+                })
+        }
     </script>
 </html>
