@@ -1,5 +1,6 @@
 <html>
     <head>
+        <meta charset="utf-8"> 
         <title>StreetTrees!</title>
         <script src="d3.js"></script>
         <script src="func.js"></script>
@@ -51,25 +52,47 @@
             h1 {
                 margin-bottom: 1.05em;
             }
+            caption {
+                text-align: center;
+                margin-bottom: 0.5em;
+            }
             figcaption {
                 text-align: center;
                 margin-top: 0.25em;
                 margin-bottom: 1.64em;
             }
+            caption .table-number,
             figcaption .figure-number {
                 font-weight: bold;
-            }            
+            }
+            caption .table-number ~ .table-caption-text,
             figcaption .figure-number ~ .figure-caption-text {
                 margin-left: 0.75em;
             }
             .text-align-center {
                 text-align: center;
             }
+            table, th, td {
+                border: 1px solid #1a1a1e;
+                border-color: rgba(26,26,30,.2);
+            }
+            table {
+                margin-left:auto; 
+                margin-right:auto;
+                border-spacing: 0;
+                border-width: 1px 0 0 1px;
+            }
+            th, td {
+                padding: .4375em;
+                border-width: 0 1px 1px 0;
+                text-align: left;
+            }
         </style>
     </head>
     <body>
         <div class="site">
             <h1>StreetTrees!</h1>
+            <p><a href="https://github.com/NYU-VIS-FALL2018/street-trees">github.com/NYU-VIS-FALL2018/street-trees</a></p>
             <h3>How many trees are there?</h3>
             <figure>
                 <div class="text-align-center">
@@ -87,12 +110,86 @@
             </figure>
             <p>Upper East &amp; West Side has a high street tree density. Several neighborhoods, including Park Slope, Midwood, South Bronx, and Ridgewood also have a high density.</p>
             <p>Midtown Manhattan has a low street tree density. Greenpoint and Hunters Point (along the boundary between Brooklyn and Queens), northwest of Staten Island, and southwest of Brooklyn (along the beach) also have a low density. Notice that some tracts with a very low density are park spaces and lack of street trees.</p>
+            <h3>What are these trees?</h3>
             <figure>
                 <div class="text-align-center">
                     <svg id="species"></svg>
                 </div>
                 <figcaption><span class="figure-number">Figure 3.</span><span class="figure-caption-text">Number of Top 10 Species (live trees only)</span></figcaption>
             </figure>
+            <table>
+                <caption><span class="table-number">Table 1.</span><span class="table-caption-text">Top 10 NYC Street Tree Species</span></caption>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name in English</th>
+                        <th>Binomial Name</th>
+                        <th>Name in Chinese</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>London planetree</td>
+                        <td><i>Platanus</i> × <i>acerifolia</i></td>
+                        <td>二球悬铃木（英桐）</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>honey locust</td>
+                        <td><i>Gleditsia triacanthos</i> var. <i>inermis</i></td>
+                        <td>美国皂荚</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Callery pear</td>
+                        <td><i>Pyrus calleryana</i></td>
+                        <td>豆梨</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>pin oak</td>
+                        <td><i>Quercus palustris</i></td>
+                        <td>沼生栎</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Norway maple</td>
+                        <td><i>Acer platanoides</i></td>
+                        <td>挪威枫</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>littleleaf linden</td>
+                        <td><i>Tilia cordata</i></td>
+                        <td>欧洲小叶椴</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>cherry</td>
+                        <td><i>Prunus virginiana</i></td>
+                        <td>美国稠李</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Japanese zelkova</td>
+                        <td><i>Zelkova serrata</i></td>
+                        <td>光叶榉（榉树）</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>ginkgo</td>
+                        <td><i>Ginkgo biloba</i></td>
+                        <td>银杏</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>green ash</td>
+                        <td><i>Fraxinus pennsylvanica</i></td>
+                        <td>美国红梣（洋白蜡）</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>
