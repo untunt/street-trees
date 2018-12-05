@@ -3,27 +3,96 @@
         <title>StreetTrees!</title>
         <script src="d3.js"></script>
         <script src="func.js"></script>
+        <script>
+            loadData("data/").then(showData);
+        </script>
         <style>
             svg {
                 border: 1px solid black;
+                width: 600px;
+                height: 400px;
             }
             svg.map {
                 width: 800px;
                 height: 800px;
             }
             svg text {
-                font-size: initial;
+                font-size: 1.25em;
+            }
+            
+            body {
+                background-color: #60c0e8;
+                color: #1a1a1e;
+                font-size: 1rem;
+                line-height: 1.75;
+                margin: 0;
+            }
+            .site {
+                background-color: #f0f4f8;
+                margin: 21px;
+                padding: 5.25em 7% 5.25em 7%;
+            }
+            body:before, body:after {
+                background: inherit;
+                content: "";
+                display: block;
+                height: 21px;
+                left: 0;
+                position: fixed;
+                width: 100%;
+                z-index: 99;
+            }
+            body:before {
+                top: 0;
+            }
+            body:after {
+                bottom: 0;
+            }
+            h1 {
+                margin-bottom: 1.05em;
+            }
+            figcaption {
+                text-align: center;
+                margin-top: 0.25em;
+                margin-bottom: 1.64em;
+            }
+            figcaption .figure-number {
+                font-weight: bold;
+            }            
+            figcaption .figure-number ~ .figure-caption-text {
+                margin-left: 0.75em;
+            }
+            .text-align-center {
+                text-align: center;
             }
         </style>
     </head>
     <body>
-        <figure>
-            <svg id="density" class="map"></svg>
-            <figcaption>Tree Density: number of live street trees divided by the area of tract for each census tract</figcaption>
-        </figure>
-        <figure>
-            <svg id="species"></svg>
-            <figcaption>Number of Top 10 Species (live trees only)</figcaption>
-        </figure>
+        <div class="site">
+            <h1>StreetTrees!</h1>
+            <h3>How many trees are there?</h3>
+            <figure>
+                <div class="text-align-center">
+                    <svg id="count"></svg>
+                </div>
+                <figcaption><span class="figure-number">Figure 1.</span><span class="figure-caption-text">Number of Live Street Trees of each Borough</span></figcaption>
+            </figure>
+            <p>There are totally <span id="sum"></span> live street trees in NYC.</p>
+            <h3>What is the density of trees?</h3>
+            <figure>
+                <div class="text-align-center">
+                    <svg id="density" class="map"></svg>
+                </div>
+                <figcaption><span class="figure-number">Figure 2.</span><span class="figure-caption-text">Tree Density: number of live street trees divided by the area of tract for each census tract</span></figcaption>
+            </figure>
+            <p>Upper East &amp; West Side has a high street tree density. Several neighborhoods, including Park Slope, Midwood, South Bronx, and Ridgewood also have a high density.</p>
+            <p>Midtown Manhattan has a low street tree density. Greenpoint and Hunters Point (along the boundary between Brooklyn and Queens), northwest of Staten Island, and southwest of Brooklyn (along the beach) also have a low density. Notice that some tracts with a very low density are park spaces and lack of street trees.</p>
+            <figure>
+                <div class="text-align-center">
+                    <svg id="species"></svg>
+                </div>
+                <figcaption><span class="figure-number">Figure 3.</span><span class="figure-caption-text">Number of Top 10 Species (live trees only)</span></figcaption>
+            </figure>
+        </div>
     </body>
 </html>
