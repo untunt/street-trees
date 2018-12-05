@@ -84,7 +84,6 @@ function showData() {
     document.getElementById('sum').innerHTML = d3.sum(boroCount).toLocaleString();
 
     container = d3.select("#density");
-    margin.left = 120;
     container
         .attr("width", width_map)
         .attr("height", width_map)
@@ -113,6 +112,8 @@ function showData() {
         })
     
     container = d3.select("#species");
+    margin.left = 120;
+    bodyWidth = width - margin.left - margin.right;
     container
         .attr("width", width)
         .attr("height", height)
