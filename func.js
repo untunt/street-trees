@@ -1,6 +1,7 @@
 let tracts;
 let numberByCT;
 let numberBySpecies;
+let popularSpcByCT;
 
 function total(record) {
     return parseInt(record.Fair) + parseInt(record.Good) + parseInt(record.Poor);
@@ -10,11 +11,13 @@ function loadData(dir) {
     return Promise.all([
         d3.json(`${dir}tracts.geo.json`),
         d3.csv(`${dir}num_by_ct.csv`),
-        d3.csv(`${dir}num_by_spc.csv`)
+        d3.csv(`${dir}num_by_spc.csv`),
+        d3.csv(`${dir}pop_by_ct.csv`)
     ]).then(datasets => {
         tracts = datasets[0];
         numberByCT = datasets[1];
         numberBySpecies = datasets[2];
+        popularSpcByCT = datasets[3];
     });
 }
 
@@ -92,7 +95,7 @@ function showData() {
         .attr("d", path) // Use the path generator to draw each tract
         .attr("stroke", "#000")
         .attr("stroke-width", width_map / 2500)
-        .attr("fill", (d, i) => {
+        .attr("fill", d => {
             // Find the record of this tract
             numberByCTRow = numberByCT.find(e => e.boro_ct == d.properties.boro_ct2010);
             // If not found, leave it gray
@@ -120,14 +123,15 @@ function showData() {
     numberBySpecies.sort((a, b) => total(b) - total(a));
     // Display top 10 species only
     top10 = numberBySpecies.slice(0, 10);
+    // Covert to a list of species
+    top10Species = top10.map(a => a.spc_common);
     xScale = d3.scaleLinear()
         .range([0, bodyWidth])
         // Max of count 
         .domain([0, total(top10[0])]);
     yScale = d3.scaleBand()
         .range([0, bodyHeight])
-        // Covert to a list of species
-        .domain(top10.map(a => a.spc_common))
+        .domain(top10Species)
         .padding(0.2);
     container.append("g")
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
@@ -138,11 +142,33 @@ function showData() {
         .attr("height", yScale.bandwidth())
         .attr("y", d => yScale(d.spc_common))
         .attr("width", d => xScale(total(d)))
-        .attr("fill", color(80));
+        .attr("fill", (d, i) => d3.schemeCategory10[i]);
     container.append("g")
         .style("transform", `translate(${margin.left}px, ${height - margin.bottom}px)`)
         .call(d3.axisBottom(xScale).ticks(5));
     container.append("g")
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
         .call(d3.axisLeft(yScale));
+    
+    
+    container = d3.select("#popular");
+    container
+        .attr("width", width_map)
+        .attr("height", width_map)
+    container.selectAll("path").data(tracts.features)
+        .enter().append("path")
+        .attr("d", path) // Use the path generator to draw each tract
+        .attr("stroke", "#000")
+        .attr("stroke-width", width_map / 2500)
+        .attr("fill", d => {
+            // Find the record of this tract
+            popularSpcByCTRow = popularSpcByCT.find(e => e.boro_ct2010 == d.properties.boro_ct2010);
+            // If not found or not top 10, leave it gray
+            if (popularSpcByCTRow === undefined
+                || popularSpcByCTRow.species === undefined
+                || top10Species.indexOf(popularSpcByCTRow.species) == -1) {
+                return "#ddd";
+            }
+            return d3.schemeCategory10[top10Species.indexOf(popularSpcByCTRow.species)];
+        })
 }
