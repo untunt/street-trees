@@ -8,6 +8,13 @@
             loadData("data/").then(showData);
         </script>
         <style>
+            h1.entry-title {
+                margin-bottom: 0.3em;
+            }
+            .git {
+                margin-top: 0;
+                padding-bottom: 1.3em;
+            }
             svg {
                 border: 1px solid black;
                 width: 600px;
@@ -91,8 +98,9 @@
     </head>
     <body>
         <div class="site">
-            <h1>StreetTrees!</h1>
-            <p><a href="https://github.com/NYU-VIS-FALL2018/street-trees">github.com/NYU-VIS-FALL2018/street-trees</a></p>
+            <h1 class="entry-title">StreetTrees!</h1>
+            <p class="git"><a href="https://github.com/NYU-VIS-FALL2018/street-trees">github.com/NYU-VIS-FALL2018/street-trees</a></p>
+            <p>We walk on streets every day; we are passing street trees every day. Did we notice street trees in NYC? Do we understand street trees in NYC?</p>
             <h3>How many trees are there?</h3>
             <figure>
                 <div class="text-align-center">
@@ -184,12 +192,18 @@
                     </tr>
                     <tr>
                         <td>10</td>
-                        <td>green ash</td>
-                        <td><i>Fraxinus pennsylvanica</i></td>
-                        <td>美国红梣（洋白蜡）</td>
+                        <td>Sophora</td>
+                        <td><i>Styphnolobium japonicum</i></td>
+                        <td>槐属</td>
                     </tr>
                 </tbody>
             </table>
+            <figure>
+                <div class="text-align-center">
+                    <svg id="popular" class="map"></svg>
+                </div>
+                <figcaption><span class="figure-number">Figure 4.</span><span class="figure-caption-text">Popular Species: species having the largest number in each census tract (only top 10 is shown)</span></figcaption>
+            </figure>
         </div>
     </body>
 </html>

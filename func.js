@@ -123,6 +123,11 @@ function showData() {
     numberBySpecies.sort((a, b) => total(b) - total(a));
     // Display top 10 species only
     top10 = numberBySpecies.slice(0, 10);
+    top10Colors = d3.schemeCategory10.map(a => {
+        result = d3.hsl(a);
+        result.s *= 0.8;
+        return result.brighter(0.5);
+    });
     // Covert to a list of species
     top10Species = top10.map(a => a.spc_common);
     xScale = d3.scaleLinear()
@@ -142,7 +147,7 @@ function showData() {
         .attr("height", yScale.bandwidth())
         .attr("y", d => yScale(d.spc_common))
         .attr("width", d => xScale(total(d)))
-        .attr("fill", (d, i) => d3.schemeCategory10[i]);
+        .attr("fill", (d, i) => top10Colors[i]);
     container.append("g")
         .style("transform", `translate(${margin.left}px, ${height - margin.bottom}px)`)
         .call(d3.axisBottom(xScale).ticks(5));
@@ -169,6 +174,6 @@ function showData() {
                 || top10Species.indexOf(popularSpcByCTRow.species) == -1) {
                 return "#ddd";
             }
-            return d3.schemeCategory10[top10Species.indexOf(popularSpcByCTRow.species)];
+            return top10Colors[top10Species.indexOf(popularSpcByCTRow.species)];
         })
 }
