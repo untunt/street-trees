@@ -103,6 +103,20 @@ function jumpToAnchor(anchor) {
     location = location.toString().replace(/#[A-Za-z0-9_]*$/,'') + "#" + anchor;
 }
 
+function mapping1(density) {
+    // The max of density is 0.000265
+    // A 0.75 exponent is set so that there will be more green (data near 1)
+    return Math.pow((density - 0.000015) / 0.000265, 0.75) * 100;
+}
+
+function mapping2(percent) {
+    return Math.pow(percent / 62.38, 0.55) * 100;
+}
+
+function mapping3(percent) {
+    return percent / 20 * 62.38;
+}
+
 function loadData(dir) {
     return Promise.all([
         d3.json(`${dir}tracts.geo.json`),
@@ -182,7 +196,8 @@ function showData() {
     
     container.selectAll("path").data(tracts.features)
         .enter().append("path")
-        .attr("d", path) // Use the path generator to draw each tract
+        // Use the path generator to draw each tract
+        .attr("d", path)
         .attr("stroke", strokeColor)
         .attr("stroke-width", height / 2500)
         .attr("fill", d => {
@@ -199,9 +214,7 @@ function showData() {
             if (density < 0.000015) {
                 return colorRange(0);
             }
-            // The max of density is 0.000265
-            // A 0.75 exponent is set so that there will be more green (data near 1)
-            return colorRange(Math.pow((density - 0.000015) / 0.000265, 0.75) * 100);
+            return colorRange(mapping1(density));
         })
     
     
@@ -306,7 +319,7 @@ function showData() {
         top: 100,
         bottom: 10,
         left: 90,
-        right: 30
+        right: 220
     };
     bodyHeight = height - margin.top - margin.bottom;
     bodyWidth = width - margin.left - margin.right;
@@ -329,8 +342,8 @@ function showData() {
         .attr("height", yScale.bandwidth())
         .attr("x", d => xScale(d.spc_common))
         .attr("width", xScale.bandwidth())
-        .attr("fill", d => colorRange(Math.pow(d.percent / 100, 0.4) * 100))
-        .attr("stroke", d => colorRange(Math.pow(d.percent / 100, 0.4) * 100))
+        .attr("fill", d => colorRange(mapping2(d.percent)))
+        .attr("stroke", d => colorRange(mapping2(d.percent)))
         .attr("stroke-width", 0.5);
     container.append("g")
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
@@ -340,6 +353,32 @@ function showData() {
         .attr("dx", "0.2em")
         .attr("dy", "-0.2em")
         .style("text-anchor", "start");
+    container.append("g")
+        .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
+        .call(d3.axisLeft(yScale));
+    
+    margin = {
+        top: 200,
+        bottom: 200,
+        left: 450,
+        right: 10
+    };
+    bodyHeight = height - margin.top - margin.bottom;
+    bodyWidth = width - margin.left - margin.right;
+    array21 = [...Array(21).keys()];
+    yScale = d3.scaleLinear()
+        .range([0, bodyHeight])
+        .domain([0, 62.38]);
+    // Gradient bar (legend)
+    container.append("g")
+        .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
+        .selectAll(".bar")
+        .data(array21)
+        .enter().append("rect")
+        .attr("y", d => yScale(mapping3(d)))
+        .attr("height", d => yScale(mapping3(1)) - yScale(0))
+        .attr("width", 20)
+        .attr("fill", d => colorRange(mapping2(mapping3(d))));
     container.append("g")
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
         .call(d3.axisLeft(yScale));
