@@ -110,11 +110,11 @@ function mapping1(density) {
 }
 
 function mapping2(percent) {
-    return Math.pow(percent / 62.38, 0.55) * 100;
+    return Math.pow(percent / 62.38, 0.65) * 100;
 }
 
 function mapping3(percent) {
-    return percent / 20 * 62.38;
+    return percent / rangeSize * 62.38;
 }
 
 function loadData(dir) {
@@ -318,11 +318,11 @@ function showData() {
     margin = {
         top: 100,
         bottom: 10,
-        left: 90,
+        left: 110,
         right: 220
     };
     bodyHeight = height - margin.top - margin.bottom;
-    bodyWidth = width - margin.left - margin.right;
+    bodyWidth = bodyHeight / 2;
 
     streetSuffixes = percentByStreets.map(d => d["suffix"]);
     // Get unique
@@ -357,15 +357,13 @@ function showData() {
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
         .call(d3.axisLeft(yScale));
     
-    margin = {
-        top: 200,
-        bottom: 200,
-        left: 450,
-        right: 10
-    };
-    bodyHeight = height - margin.top - margin.bottom;
-    bodyWidth = width - margin.left - margin.right;
-    array21 = [...Array(21).keys()];
+    bodyHeight = 200;
+    bodyWidth = 20;
+    margin.top = 200;
+    margin.right = 60;
+    margin.left = width - margin.right - bodyWidth;
+    rangeSize = bodyHeight;
+    rangeArray = [...Array(bodyHeight).keys()];
     yScale = d3.scaleLinear()
         .range([0, bodyHeight])
         .domain([0, 62.38]);
@@ -373,13 +371,21 @@ function showData() {
     container.append("g")
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
         .selectAll(".bar")
-        .data(array21)
+        .data(rangeArray)
         .enter().append("rect")
-        .attr("y", d => yScale(mapping3(d)))
-        .attr("height", d => yScale(mapping3(1)) - yScale(0))
-        .attr("width", 20)
+        .attr("y", d => d)
+        .attr("height", 1)
+        .attr("width", bodyWidth)
         .attr("fill", d => colorRange(mapping2(mapping3(d))));
     container.append("g")
-        .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
-        .call(d3.axisLeft(yScale));
+        .style("transform", `translate(${margin.left + bodyWidth}px, ${margin.top}px)`)
+        .call(d3.axisRight(yScale).ticks(5));
+        // text label for the x axis
+    container.append("text")
+        .style("transform", `translate(${margin.left + bodyWidth * 2}px, ${margin.top + bodyHeight * 1.07}px)`)
+        .text("%");
+    container.append("text")
+        .style("transform", `translate(${margin.left + bodyWidth}px, ${margin.top - bodyHeight * 0.07}px)`)
+        .style("text-anchor", "middle")
+        .text("Percent in Row");
 }
