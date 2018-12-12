@@ -5,10 +5,6 @@ let popularSpcByCT;
 
 green = "rgb(20, 108, 54)";
 yellow = "rgb(244, 209, 102)";
-// Set an array of colors from yellow to green
-colorRange = d3.scaleLinear()
-    .domain([0, 100])
-    .range([yellow, green]);
 
 // Leave tract whose record is not found to be gray
 undefinedColor = "#ddd";
@@ -112,12 +108,14 @@ function loadData(dir) {
         d3.json(`${dir}tracts.geo.json`),
         d3.csv(`${dir}num_by_ct.csv`),
         d3.csv(`${dir}num_by_spc.csv`),
-        d3.csv(`${dir}pop_by_ct.csv`)
+        d3.csv(`${dir}pop_by_ct.csv`),
+        d3.csv(`${dir}pct_by_st.csv`)
     ]).then(datasets => {
         tracts = datasets[0];
         numberByCT = datasets[1];
         numberBySpecies = datasets[2];
         popularSpcByCT = datasets[3];
+        percentByStreets = datasets[4];
     });
 }
 
@@ -148,6 +146,10 @@ function showData() {
     yScale = d3.scaleLinear()
         .range([bodyHeight, 0])
         .domain([0, d3.max(boroCount)]);
+    // Set an array of colors from yellow to green
+    colorRange = d3.scaleLinear()
+        .domain([0, 100])
+        .range([yellow, green]);
     container.append("g")
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
         .selectAll(".bar")
@@ -199,7 +201,7 @@ function showData() {
             }
             // The max of density is 0.000265
             // A 0.75 exponent is set so that there will be more green (data near 1)
-            return colorRange(Math.floor(Math.pow((density - 0.000015) / 0.000265, 0.75)  * 100));
+            return colorRange(Math.pow((density - 0.000015) / 0.000265, 0.75) * 100);
         })
     
     
@@ -236,8 +238,6 @@ function showData() {
         .attr("height", yScale.bandwidth())
         .attr("y", d => yScale(d.spc_common))
         .attr("width", d => xScale(total(d)))
-        .attr("stroke", "none")
-        .attr("stroke-width", 4)
         .attr("class", (d, i) => "species" + i)
         .attr("onclick", (d, i) => `showIntro(${i})`)
         .attr("cursor", "pointer")
@@ -297,4 +297,50 @@ function showData() {
     }
     
     hideIntro();
+    
+    
+    container = d3.select("#streets");
+    width = container.node().getBoundingClientRect().width;
+    height = container.node().getBoundingClientRect().height;
+    margin = {
+        top: 100,
+        bottom: 10,
+        left: 90,
+        right: 30
+    };
+    bodyHeight = height - margin.top - margin.bottom;
+    bodyWidth = width - margin.left - margin.right;
+
+    streetSuffixes = percentByStreets.map(d => d["suffix"]);
+    // Get unique
+    streetSuffixes.filter((d, i, s) => s.indexOf(d) === i);
+    xScale = d3.scaleBand()
+        .range([0, bodyWidth])
+        .domain(top10Species);
+    yScale = d3.scaleBand()
+        .range([0, bodyHeight])
+        .domain(streetSuffixes);
+    container.append("g")
+        .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
+        .selectAll(".bar")
+        .data(percentByStreets)
+        .enter().append("rect")
+        .attr("y", d => yScale(d.suffix))
+        .attr("height", yScale.bandwidth())
+        .attr("x", d => xScale(d.spc_common))
+        .attr("width", xScale.bandwidth())
+        .attr("fill", d => colorRange(Math.pow(d.percent / 100, 0.4) * 100))
+        .attr("stroke", d => colorRange(Math.pow(d.percent / 100, 0.4) * 100))
+        .attr("stroke-width", 0.5);
+    container.append("g")
+        .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
+        .call(d3.axisTop(xScale))
+        .selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .attr("dx", "0.2em")
+        .attr("dy", "-0.2em")
+        .style("text-anchor", "start");
+    container.append("g")
+        .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
+        .call(d3.axisLeft(yScale));
 }

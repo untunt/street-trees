@@ -1,0 +1,201 @@
+﻿spc_common,suffix,percent
+London planetree,Street,22.18
+honey locust,Street,14.89
+Callery pear,Street,12.48
+pin oak,Street,10.76
+Norway maple,Street,8.19
+littleleaf linden,Street,7.5
+cherry,Street,6.4
+Japanese zelkova,Street,6.89
+ginkgo,Street,5.6
+Sophora,Street,5.1
+London planetree,Avenue,18.56
+honey locust,Avenue,15.46
+Callery pear,Avenue,15.24
+pin oak,Avenue,13.12
+Norway maple,Avenue,8.05
+littleleaf linden,Avenue,6.49
+cherry,Avenue,7.63
+Japanese zelkova,Avenue,6.83
+ginkgo,Avenue,4.4
+Sophora,Avenue,4.21
+London planetree,Road,19.44
+honey locust,Road,11.61
+Callery pear,Road,15.76
+pin oak,Road,14.4
+Norway maple,Road,10.75
+littleleaf linden,Road,6.31
+cherry,Road,8.91
+Japanese zelkova,Road,6.04
+ginkgo,Road,3.61
+Sophora,Road,3.17
+London planetree,Boulevard,17.7
+honey locust,Boulevard,17.55
+Callery pear,Boulevard,13.39
+pin oak,Boulevard,17.44
+Norway maple,Boulevard,5.04
+littleleaf linden,Boulevard,6.21
+cherry,Boulevard,5.75
+Japanese zelkova,Boulevard,7.37
+ginkgo,Boulevard,5.25
+Sophora,Boulevard,4.29
+London planetree,Place,20.3
+honey locust,Place,12.89
+Callery pear,Place,15.92
+pin oak,Place,11.6
+Norway maple,Place,8.68
+littleleaf linden,Place,7.3
+cherry,Place,6.9
+Japanese zelkova,Place,6.73
+ginkgo,Place,5.16
+Sophora,Place,4.52
+London planetree,Parkway,22.11
+honey locust,Parkway,17.12
+Callery pear,Parkway,6.28
+pin oak,Parkway,18.36
+Norway maple,Parkway,7.28
+littleleaf linden,Parkway,10.71
+cherry,Parkway,3.41
+Japanese zelkova,Parkway,8.57
+ginkgo,Parkway,2.76
+Sophora,Parkway,3.42
+London planetree,Drive,22.66
+honey locust,Drive,14.49
+Callery pear,Drive,12.6
+pin oak,Drive,10.81
+Norway maple,Drive,8.31
+littleleaf linden,Drive,9.48
+cherry,Drive,8.49
+Japanese zelkova,Drive,5.86
+ginkgo,Drive,2.97
+Sophora,Drive,4.32
+London planetree,Lane,18.33
+honey locust,Lane,10.41
+Callery pear,Lane,28.97
+pin oak,Lane,9.7
+Norway maple,Lane,8.37
+littleleaf linden,Lane,5.21
+cherry,Lane,9.41
+Japanese zelkova,Lane,4.95
+ginkgo,Lane,1.71
+Sophora,Lane,2.94
+London planetree,“Broadway”,13.59
+honey locust,“Broadway”,19.34
+Callery pear,“Broadway”,10
+pin oak,“Broadway”,35.4
+Norway maple,“Broadway”,0.56
+littleleaf linden,“Broadway”,3.36
+cherry,“Broadway”,2.38
+Japanese zelkova,“Broadway”,4.9
+ginkgo,“Broadway”,6.45
+Sophora,“Broadway”,4.02
+London planetree,Court,27.87
+honey locust,Court,9.4
+Callery pear,Court,26.47
+pin oak,Court,9.59
+Norway maple,Court,8.44
+littleleaf linden,Court,3.62
+cherry,Court,4.77
+Japanese zelkova,Court,5.5
+ginkgo,Court,1.16
+Sophora,Court,3.18
+London planetree,Terrace,21.2
+honey locust,Terrace,16.47
+Callery pear,Terrace,15.5
+pin oak,Terrace,10.71
+Norway maple,Terrace,6.27
+littleleaf linden,Terrace,5.7
+cherry,Terrace,7.69
+Japanese zelkova,Terrace,5.81
+ginkgo,Terrace,5.53
+Sophora,Terrace,5.13
+London planetree,Park,11.13
+honey locust,Park,6.63
+Callery pear,Park,5.18
+pin oak,Park,39.79
+Norway maple,Park,3.89
+littleleaf linden,Park,8
+cherry,Park,1.52
+Japanese zelkova,Park,4.73
+ginkgo,Park,17.23
+Sophora,Park,1.91
+London planetree,Expressway,62.38
+honey locust,Expressway,6.61
+Callery pear,Expressway,3.35
+pin oak,Expressway,16.48
+Norway maple,Expressway,3.72
+littleleaf linden,Expressway,1.12
+cherry,Expressway,0.93
+Japanese zelkova,Expressway,3.07
+ginkgo,Expressway,1.58
+Sophora,Expressway,0.74
+London planetree,Concourse,6.46
+honey locust,Concourse,47.73
+Callery pear,Concourse,5.56
+pin oak,Concourse,6.92
+Norway maple,Concourse,1.47
+littleleaf linden,Concourse,2.61
+cherry,Concourse,0.79
+Japanese zelkova,Concourse,19.16
+ginkgo,Concourse,4.88
+Sophora,Concourse,4.42
+London planetree,Highway,8.04
+honey locust,Highway,19.75
+Callery pear,Highway,3
+pin oak,Highway,24.25
+Norway maple,Highway,8.45
+littleleaf linden,Highway,3.54
+cherry,Highway,2.04
+Japanese zelkova,Highway,21.53
+ginkgo,Highway,6.4
+Sophora,Highway,3
+London planetree,Loop,21.8
+honey locust,Loop,21.8
+Callery pear,Loop,30.16
+pin oak,Loop,11.64
+Norway maple,Loop,1.97
+littleleaf linden,Loop,0.98
+cherry,Loop,2.95
+Japanese zelkova,Loop,2.62
+ginkgo,Loop,2.79
+Sophora,Loop,3.28
+London planetree,Turnpike,11.5
+honey locust,Turnpike,13.67
+Callery pear,Turnpike,5
+pin oak,Turnpike,24.5
+Norway maple,Turnpike,13.17
+littleleaf linden,Turnpike,3.17
+cherry,Turnpike,2.33
+Japanese zelkova,Turnpike,20.67
+ginkgo,Turnpike,4
+Sophora,Turnpike,2
+London planetree,Crescent,23.36
+honey locust,Crescent,20.35
+Callery pear,Crescent,8.85
+pin oak,Crescent,18.76
+Norway maple,Crescent,5.66
+littleleaf linden,Crescent,5.49
+cherry,Crescent,6.02
+Japanese zelkova,Crescent,2.65
+ginkgo,Crescent,3.72
+Sophora,Crescent,5.13
+London planetree,Circle,30.33
+honey locust,Circle,14.33
+Callery pear,Circle,25.67
+pin oak,Circle,13.33
+Norway maple,Circle,7.33
+littleleaf linden,Circle,0.33
+cherry,Circle,3.33
+Japanese zelkova,Circle,3
+ginkgo,Circle,2.33
+Sophora,Circle,0
+London planetree,Green,16.87
+honey locust,Green,33.33
+Callery pear,Green,25.3
+pin oak,Green,7.23
+Norway maple,Green,15.26
+littleleaf linden,Green,0
+cherry,Green,1.61
+Japanese zelkova,Green,0
+ginkgo,Green,0.4
+Sophora,Green,0
