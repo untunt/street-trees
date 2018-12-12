@@ -87,6 +87,26 @@ function setColorInBars(d, i, paths, highlight) {
     paths[i].attributes.fill.value = color;
 }
 
+
+function hideIntro() {
+    for (i = 0; i < 10; i++) {
+        d = document.getElementById("species" + i);
+        d.style.display = "none";
+    }
+}
+
+function showIntro(index) {
+    hideIntro();
+    d = document.getElementsByClassName("spc-intro-default")[0].style.display = "none";
+    d = document.getElementById("species" + index);
+    d.style.display = "block";
+    jumpToAnchor("species" + index);
+}
+
+function jumpToAnchor(anchor) {
+    location = location.toString().replace(/#[A-Za-z0-9_]*$/,'') + "#" + anchor;
+}
+
 function loadData(dir) {
     return Promise.all([
         d3.json(`${dir}tracts.geo.json`),
@@ -193,7 +213,8 @@ function showData() {
     path = d3.geoPath(projection);
     margin.left = 120;
     margin.top = 40;
-    bodyWidth = 400;
+    bodyWidth = width * 0.4;
+    bodyHeight = height * 0.4;
     numberBySpecies.sort((a, b) => total(b) - total(a));
     // Display top 10 species only
     top10 = numberBySpecies.slice(0, 10);
@@ -218,6 +239,8 @@ function showData() {
         .attr("stroke", "none")
         .attr("stroke-width", 4)
         .attr("class", (d, i) => "species" + i)
+        .attr("onclick", (d, i) => `showIntro(${i})`)
+        .attr("cursor", "pointer")
         // Register mouse over and out events
         .on("mouseover", (d, i) => highlightColorInSpecies(d, i))
         .on("mouseout", d => setColorInSpecies(d));
@@ -229,7 +252,7 @@ function showData() {
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
         .call(d3.axisLeft(yScale));
     container.select(".yScale").selectAll("text")
-        .attr("onclick", (d, i) => `onclick="showIntro(${i})"`)
+        .attr("onclick", (d, i) => `showIntro(${i})`)
         .attr("cursor", "pointer");
     
     container.selectAll("path").data(tracts.features)
@@ -257,10 +280,13 @@ function showData() {
     titles = ["Binomial Name", "Name in Chinese", null, "Date", "Tree ID", "Address", "Trunk Diameter"]
     for (i = 0; i < 10; i++) {
         d = document.getElementById("species" + i);
-        ps = document.getElementById("species" + i).getElementsByTagName("p");
+        ps = d.getElementsByTagName("p");
         if (ps.length < titles.length) {
             continue;
         }
+        newItem = document.createElement("span");
+        newItem.innerHTML = `<a href="#species" class="back-to">Back to <span class="figure-number">Figure 3</span></a>`;
+        d.insertBefore(newItem, ps[0]);
         ps[4].innerHTML = `<a href="https://tree-map.nycgovparks.org/#treeinfo-${ps[4].innerHTML}" title="view this tree in NYC Street Tree Map" target="_blank">${ps[4].innerHTML}</a>`
         titles.forEach((title, j) => {
             if (title) {
@@ -269,4 +295,6 @@ function showData() {
         });
         ps[6].innerHTML = `${ps[6].innerHTML} inches`;
     }
+    
+    hideIntro();
 }

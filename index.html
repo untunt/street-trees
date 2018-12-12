@@ -23,15 +23,16 @@
                 height: 400px;
             }
             .figure-2 {
-                width: 800px;
-                height: 800px;
+                width: 700px;
+                height: 700px;
             }
             .figure-3 {
-                width: 1000px;
-                height: 800px;
+                width: 900px;
+                height: 700px;
             }
             .spc-intro {
                 margin-top: 2em;
+                display: none;
             }
             .spc-intro > img {
                 height: 80px;
@@ -49,6 +50,14 @@
             .spc-intro p img {
                 margin-top: 1em;
             }
+            .text-align-center {
+                margin-left: -500;
+                margin-right: -500;
+            }
+            .back-to {
+                float: right;
+                margin-top: 1.5em;
+            }
             
             body {
                 background-color: #60c0e8;
@@ -60,7 +69,7 @@
             .site {
                 background-color: #f0f4f8;
                 margin: 21px;
-                padding: 5.25em 25% 5.25em 25%;
+                padding: 5.25em 20% 5.25em 20%;
             }
             body:before, body:after {
                 background: inherit;
@@ -101,6 +110,7 @@
             .text-align-center {
                 text-align: center;
             }
+
             table, th, td {
                 border: 1px solid #1a1a1e;
                 border-color: rgba(26,26,30,.2);
@@ -147,6 +157,9 @@
                 </div>
                 <figcaption><span class="figure-number">Figure 3.</span><span class="figure-caption-text">a) Number of Top 10 Street Tree Species (live trees only)<br>b) Popular Species: species having the largest number in each census tract (only top 10 is shown)</span></figcaption>
             </figure>
+            <div class="spc-intro-default">
+                <p>Click one of species names or bars in <span class="figure-number">Figure 3</span> to view the introduction to that species.</p>
+            </div>
             <div id="species0" class="spc-intro">
                 <img src="https://tree-map.nycgovparks.org/public/images/66603.jpg">
                 <h3>London planetree</h3>
