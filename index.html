@@ -15,9 +15,6 @@
                 margin-top: 0;
                 padding-bottom: 1.3em;
             }
-            svg {
-                /*border: 1px solid black;*/
-            }
             svg text {
                 font-size: 1.25em;
             }
@@ -33,6 +30,25 @@
                 width: 1000px;
                 height: 800px;
             }
+            .spc-intro {
+                margin-top: 2em;
+            }
+            .spc-intro > img {
+                height: 80px;
+            }
+            .spc-intro h3 {
+                display: inline-block;
+                vertical-align: top;
+                height: 80px;
+                line-height: 80px;
+                margin-top: 0;
+            }
+            .spc-intro > p {
+                margin: 0;
+            }
+            .spc-intro p img {
+                margin-top: 1em;
+            }
             
             body {
                 background-color: #60c0e8;
@@ -44,7 +60,7 @@
             .site {
                 background-color: #f0f4f8;
                 margin: 21px;
-                padding: 5.25em 7% 5.25em 7%;
+                padding: 5.25em 25% 5.25em 25%;
             }
             body:before, body:after {
                 background: inherit;
@@ -107,15 +123,15 @@
             <h1 class="entry-title">StreetTrees!</h1>
             <p class="git"><a href="https://github.com/NYU-VIS-FALL2018/street-trees">github.com/NYU-VIS-FALL2018/street-trees</a></p>
             <p>We walk on streets every day; we are passing street trees every day. Did we notice street trees in NYC? Do we understand street trees in NYC?</p>
-            <h3>How many trees are there?</h3>
+            <h2>How many trees are there?</h2>
             <figure>
                 <div class="text-align-center">
                     <svg id="count" class="figure-1"></svg>
                 </div>
-                <figcaption><span class="figure-number">Figure 1.</span><span class="figure-caption-text">Number of Live Street Trees of each Borough</span></figcaption>
+                <figcaption><span class="figure-number">Figure 1.</span><span class="figure-caption-text">Number of Street Trees of each Borough (live trees only)</span></figcaption>
             </figure>
             <p>There are totally <span id="sum"></span> live street trees in NYC.</p>
-            <h3>What is the density of trees?</h3>
+            <h2>What is the density of trees?</h2>
             <figure>
                 <div class="text-align-center">
                     <svg id="density" class="figure-2"></svg>
@@ -124,86 +140,124 @@
             </figure>
             <p>Upper East &amp; West Side has a high street tree density. Several neighborhoods, including Park Slope, Midwood, South Bronx, and Ridgewood also have a high density.</p>
             <p>Midtown Manhattan has a low street tree density. Greenpoint and Hunters Point (along the boundary between Brooklyn and Queens), northwest of Staten Island, and southwest of Brooklyn (along the beach) also have a low density. Notice that some tracts with a very low density are park spaces and lack of street trees.</p>
-            <h3>What are these trees?</h3>
+            <h2>What are these trees?</h2>
             <figure>
                 <div class="text-align-center">
                     <svg id="species" class="figure-3"></svg>
                 </div>
-                <figcaption><span class="figure-number">Figure 3.</span><span class="figure-caption-text">a) Number of Top 10 Species (live trees only)<br>b) Popular Species: species having the largest number in each census tract (only top 10 is shown)</span></figcaption>
+                <figcaption><span class="figure-number">Figure 3.</span><span class="figure-caption-text">a) Number of Top 10 Street Tree Species (live trees only)<br>b) Popular Species: species having the largest number in each census tract (only top 10 is shown)</span></figcaption>
             </figure>
-            <table>
-                <caption><span class="table-number">Table 1.</span><span class="table-caption-text">Top 10 NYC Street Tree Species</span></caption>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Name in English</th>
-                        <th>Binomial Name</th>
-                        <th>Name in Chinese</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>London planetree</td>
-                        <td><i>Platanus</i> × <i>acerifolia</i></td>
-                        <td>二球悬铃木（英桐）</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>honey locust</td>
-                        <td><i>Gleditsia triacanthos</i> var. <i>inermis</i></td>
-                        <td>美国皂荚</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Callery pear</td>
-                        <td><i>Pyrus calleryana</i></td>
-                        <td>豆梨</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>pin oak</td>
-                        <td><i>Quercus palustris</i></td>
-                        <td>沼生栎</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Norway maple</td>
-                        <td><i>Acer platanoides</i></td>
-                        <td>挪威枫</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>littleleaf linden</td>
-                        <td><i>Tilia cordata</i></td>
-                        <td>欧洲小叶椴</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>cherry</td>
-                        <td><i>Prunus virginiana</i></td>
-                        <td>美国稠李</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>Japanese zelkova</td>
-                        <td><i>Zelkova serrata</i></td>
-                        <td>光叶榉（榉树）</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>ginkgo</td>
-                        <td><i>Ginkgo biloba</i></td>
-                        <td>银杏</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>Sophora</td>
-                        <td><i>Styphnolobium japonicum</i></td>
-                        <td>槐属</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="species0" class="spc-intro">
+                <img src="https://tree-map.nycgovparks.org/public/images/66603.jpg">
+                <h3>London planetree</h3>
+                <p><i>Platanus</i> × <i>acerifolia</i></p>
+                <p>二球悬铃木（英桐）</p>
+                <p><img src="https://phesoca.com/wp-content/uploads/trees/london-planetree.jpg"></p>
+                <p>Sep 2017, Google Street View</p>
+                <p>2117239</p>
+                <p>65 Cooper Sq, New York</p>
+                <p>18</p>
+            </div>
+            <div id="species1" class="spc-intro">
+                <img src="https://tree-map.nycgovparks.org/public/images/38663.jpg">
+                <h3>Honey locust</h3>
+                <p><i>Gleditsia triacanthos</i> var. <i>inermis</i></p>
+                <p>美国皂荚</p>
+                <p><img src="https://phesoca.com/wp-content/uploads/trees/honey-locust.jpg"></p>
+                <p>Oct 2017, Google Street View</p>
+                <p>158065</p>
+                <p>43 W 61st St, New York</p>
+                <p>11</p>
+            </div>
+            <div id="species2" class="spc-intro">
+                <img src="https://tree-map.nycgovparks.org/public/images/71298.jpg">
+                <h3>Callery pear</h3>
+                <p><i>Pyrus calleryana</i></p>
+                <p>豆梨</p>
+                <p><img src="https://phesoca.com/wp-content/uploads/trees/callery-pear.jpg"></p>
+                <p>Oct 2017, Google Street View</p>
+                <p>1390190</p>
+                <p>61 Columbus Ave, New York</p>
+                <p>16</p>
+            </div>
+            <div id="species3" class="spc-intro">
+                <img src="https://tree-map.nycgovparks.org/public/images/71962.jpg">
+                <h3>Pin oak</h3>
+                <p><i>Quercus palustris</i></p>
+                <p>沼生栎</p>
+                <p><img src="https://phesoca.com/wp-content/uploads/trees/pin-oak.jpg"></p>
+                <p>Jul 2017, Google Street View</p>
+                <p>1044174</p>
+                <p>135 W 3rd St, New York</p>
+                <p>15 inches</p>
+            </div>
+            <div id="species4" class="spc-intro">
+                <img src="https://tree-map.nycgovparks.org/public/images/699.jpg">
+                <h3>Norway maple</h3>
+                <p><i>Acer platanoides</i></p>
+                <p>挪威枫</p>
+                <p><img src="https://phesoca.com/wp-content/uploads/trees/norway-maple.jpg"></p>
+                <p>May 2018, Google Street View</p>
+                <p>3734393</p>
+                <p>365 45th St, Brooklyn</p>
+                <p>11</p>
+            </div>
+            <div id="species5" class="spc-intro">
+                <img src="https://tree-map.nycgovparks.org/public/images/86734.jpg">
+                <h3>littleleaf linden</h3>
+                <p><i>Tilia cordata</i></p>
+                <p>欧洲小叶椴</p>
+                <p><img src="https://phesoca.com/wp-content/uploads/trees/littleleaf-linden.jpg"></p>
+                <p>2017, Google Street View</p>
+                <p>4137811</p>
+                <p>245 Duffield St, Brooklyn</p>
+                <p>6</p>
+            </div>
+            <div id="species6" class="spc-intro">
+                <img src="https://tree-map.nycgovparks.org/public/images/92410.jpg">
+                <h3>Japanese flowering cherry</h3>
+                <p><i>Prunus serrulata</i></p>
+                <p>山樱</p>
+                <p><img src="https://phesoca.com/wp-content/uploads/trees/cherry.jpg"></p>
+                <p>Aug 2018, Google Street View</p>
+                <p>3763208</p>
+                <p>45 University Plz, Brooklyn</p>
+                <p>5</p>
+            </div>
+            <div id="species7" class="spc-intro">
+                <img src="https://tree-map.nycgovparks.org/public/images/92181.jpg">
+                <h3>Japanese zelkova</h3>
+                <p><i>Zelkova serrata</i></p>
+                <p>光叶榉（榉树）</p>
+                <p><img src="https://phesoca.com/wp-content/uploads/trees/japanese-zelkova.jpg"></p>
+                <p>Sep 2017, Google Street View</p>
+                <p>578881</p>
+                <p>24 E 8th St, New York</p>
+                <p>6</p>
+            </div>
+            <div id="species8" class="spc-intro">
+                <img src="https://tree-map.nycgovparks.org/public/images/38243.jpg">
+                <h3>Ginkgo</h3>
+                <p><i>Ginkgo biloba</i></p>
+                <p>银杏</p>
+                <p><a href="https://phesoca.com/wp-content/uploads/trees/ginkgo-1.jpg"><img src="https://phesoca.com/wp-content/uploads/trees/ginkgo-1s.jpg"></a><a href="https://phesoca.com/wp-content/uploads/trees/ginkgo-2.jpg"><img src="https://phesoca.com/wp-content/uploads/trees/ginkgo-2s.jpg"></a>
+                </p>
+                <p>Oct 1, 2017 (first one) &amp; Nov 10, 2018 (second one), by unt</p>
+                <p>3735402</p>
+                <p>449 46th St, Brooklyn</p>
+                <p>15</p>
+            </div>
+            <div id="species9" class="spc-intro">
+                <img src="https://tree-map.nycgovparks.org/public/images/83286.jpg">
+                <h3>Sophora (Japanese pagoda tree)</h3>
+                <p><i>Styphnolobium japonicum</i></p>
+                <p>槐</p>
+                <p><img src="https://phesoca.com/wp-content/uploads/trees/sophora.jpg"></p>
+                <p>Jun 2018, Google Street View</p>
+                <p>2431764</p>
+                <p>2 MetroTech Center, New York</p>
+                <p>10</p>
+            </div>
         </div>
     </body>
 </html>

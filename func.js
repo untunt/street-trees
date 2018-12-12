@@ -145,7 +145,8 @@ function showData() {
     container.append("g")
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
         .call(d3.axisLeft(yScale));
-    document.getElementById('sum').innerHTML = d3.sum(boroCount).toLocaleString();
+    // Insert the sum into HTML
+    document.getElementById("sum").innerHTML = d3.sum(boroCount).toLocaleString();
     
     
     container = d3.select("#density");
@@ -224,8 +225,12 @@ function showData() {
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
         .call(d3.axisTop(xScale).ticks(5));
     container.append("g")
+        .attr("class", "yScale")
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
-        .call(d3.axisLeft(yScale))
+        .call(d3.axisLeft(yScale));
+    container.select(".yScale").selectAll("text")
+        .attr("onclick", (d, i) => `onclick="showIntro(${i})"`)
+        .attr("cursor", "pointer");
     
     container.selectAll("path").data(tracts.features)
         .enter().append("path")
@@ -247,4 +252,21 @@ function showData() {
         .on("mouseout", (d, i, paths) => setColorInBars(d, i, paths, false));
     
     setColorInSpecies();
+    
+    // Formalize each line in species intro
+    titles = ["Binomial Name", "Name in Chinese", null, "Date", "Tree ID", "Address", "Trunk Diameter"]
+    for (i = 0; i < 10; i++) {
+        d = document.getElementById("species" + i);
+        ps = document.getElementById("species" + i).getElementsByTagName("p");
+        if (ps.length < titles.length) {
+            continue;
+        }
+        ps[4].innerHTML = `<a href="https://tree-map.nycgovparks.org/#treeinfo-${ps[4].innerHTML}" title="view this tree in NYC Street Tree Map" target="_blank">${ps[4].innerHTML}</a>`
+        titles.forEach((title, j) => {
+            if (title) {
+                ps[j].innerHTML = "<strong>" + title + ":</strong> " + ps[j].innerHTML;
+            }
+        });
+        ps[6].innerHTML = `${ps[6].innerHTML} inches`;
+    }
 }
