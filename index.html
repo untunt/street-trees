@@ -16,16 +16,22 @@
                 padding-bottom: 1.3em;
             }
             svg {
-                border: 1px solid black;
-                width: 600px;
-                height: 400px;
-            }
-            svg.map {
-                width: 800px;
-                height: 800px;
+                /*border: 1px solid black;*/
             }
             svg text {
                 font-size: 1.25em;
+            }
+            .figure-1 {
+                width: 600px;
+                height: 400px;
+            }
+            .figure-2 {
+                width: 800px;
+                height: 800px;
+            }
+            .figure-3 {
+                width: 1000px;
+                height: 800px;
             }
             
             body {
@@ -104,7 +110,7 @@
             <h3>How many trees are there?</h3>
             <figure>
                 <div class="text-align-center">
-                    <svg id="count"></svg>
+                    <svg id="count" class="figure-1"></svg>
                 </div>
                 <figcaption><span class="figure-number">Figure 1.</span><span class="figure-caption-text">Number of Live Street Trees of each Borough</span></figcaption>
             </figure>
@@ -112,7 +118,7 @@
             <h3>What is the density of trees?</h3>
             <figure>
                 <div class="text-align-center">
-                    <svg id="density" class="map"></svg>
+                    <svg id="density" class="figure-2"></svg>
                 </div>
                 <figcaption><span class="figure-number">Figure 2.</span><span class="figure-caption-text">Tree Density: number of live street trees divided by the area of tract for each census tract</span></figcaption>
             </figure>
@@ -121,9 +127,9 @@
             <h3>What are these trees?</h3>
             <figure>
                 <div class="text-align-center">
-                    <svg id="species"></svg>
+                    <svg id="species" class="figure-3"></svg>
                 </div>
-                <figcaption><span class="figure-number">Figure 3.</span><span class="figure-caption-text">Number of Top 10 Species (live trees only)</span></figcaption>
+                <figcaption><span class="figure-number">Figure 3.</span><span class="figure-caption-text">a) Number of Top 10 Species (live trees only)<br>b) Popular Species: species having the largest number in each census tract (only top 10 is shown)</span></figcaption>
             </figure>
             <table>
                 <caption><span class="table-number">Table 1.</span><span class="table-caption-text">Top 10 NYC Street Tree Species</span></caption>
@@ -198,12 +204,6 @@
                     </tr>
                 </tbody>
             </table>
-            <figure>
-                <div class="text-align-center">
-                    <svg id="popular" class="map"></svg>
-                </div>
-                <figcaption><span class="figure-number">Figure 4.</span><span class="figure-caption-text">Popular Species: species having the largest number in each census tract (only top 10 is shown)</span></figcaption>
-            </figure>
         </div>
     </body>
 </html>
