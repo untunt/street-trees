@@ -20,9 +20,15 @@ or [a same DEMO on my personal site](https://phesoca.com/street-trees/)
 
 ## Files
 
+[`Project Proposal.pdf`](Project%20Proposal.pdf): The final proposal.
+
+[`screenshot.jpg`](screenshot.jpg): The screenshot of 
+
 [`d3.js`](d3.js): [D3](https://d3js.org/), v5.7.0.
 
-[`func.js`](func.js): all JavaScript functions for this project.
+[`func.js`](func.js): all front-end JavaScript functions for this project.
+
+[`func2.js`](func2.js): all back-end JavaScript functions for this project.
 
 In [`data`](data),
 
