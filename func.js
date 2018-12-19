@@ -151,7 +151,7 @@ function showData() {
     
     numberByCT.forEach(a => {
         // The first digit is borough numeric code
-        boroCount[a.boro_ct[0]] += total(a);
+        boroCount[a.boro_ct2010[0]] += total(a);
     });
     xScale = d3.scaleBand()
         .range([0, bodyWidth])
@@ -202,7 +202,7 @@ function showData() {
         .attr("stroke-width", height / 2500)
         .attr("fill", d => {
             // Find the record of this tract
-            numberByCTRow = numberByCT.find(e => e.boro_ct == d.properties.boro_ct2010);
+            numberByCTRow = numberByCT.find(e => e.boro_ct2010 == d.properties.boro_ct2010);
             // If not found, leave it gray
             if (numberByCTRow === undefined) {
                 return undefinedColor;
