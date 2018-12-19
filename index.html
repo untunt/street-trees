@@ -22,16 +22,12 @@
             svg g text {
                 font-size: 1.4em;
             }
-            .figure-1 {
+            svg#count {
                 width: 600px;
                 height: 400px;
             }
-            .figure-2 {
-                width: 700px;
-                height: 700px;
-            }
-            .figure-3 {
-                width: 900px;
+            svg#map {
+                width: 1200px;
                 height: 700px;
             }
             .figure-4 {
@@ -151,9 +147,6 @@
             <p>There are totally <span id="sum"></span> live street trees in NYC.</p>
             <h2>What is the density of trees?</h2>
             <figure>
-                <div class="text-align-center">
-                    <svg id="density" class="figure-2"></svg>
-                </div>
                 <figcaption><span class="figure-number">Figure 2.</span><span class="figure-caption-text">Tree Density: number of live street trees divided by the area of tract for each census tract</span></figcaption>
             </figure>
             <p>Upper East &amp; West Side has a high street tree density. Several neighborhoods, including Park Slope, Midwood, South Bronx, and Ridgewood also have a high density.</p>
@@ -161,7 +154,7 @@
             <h2>What are these trees?</h2>
             <figure>
                 <div class="text-align-center">
-                    <svg id="species" class="figure-3"></svg>
+                    <svg id="map"></svg>
                 </div>
                 <figcaption><span class="figure-number">Figure 3.</span><span class="figure-caption-text">a) Number of Top 10 Street Tree Species (live trees only)<br>b) Popular Species: species having the largest number in each census tract (only top 10 is shown)</span></figcaption>
             </figure>

@@ -2,9 +2,11 @@ let tracts;
 let counts;
 let popularSpcByCT;
 let filtered;
-let countMax;
+let filteredMax;
+let percentMax;
 let usingDensity = true;
-let setColorMethod;
+let setColor;
+let setColorIndex = 0;
 
 function highlightColorInSpecies(d, index, barsOnly=false) {
     if (index < 0) {
@@ -49,36 +51,56 @@ function setColorInBars(d, i, paths, highlight) {
     paths[i].attributes.fill.value = color;
 }
 
-function setColor() {
-    setColorMethod();
+function setButtonColor() {
+    for (i = 0; i < 4; i++) {
+        d3.select("#map").select("rect.button" + i)
+            .attr("fill", undefinedColor);
+    }
+    d3.select("#map").select("rect.button" + setColorIndex)
+        .attr("fill", mapColor(30, 100));
+}
+
+function setButtonOverColor(i) {
+    d3.select("rect.button" + i).attr("fill", "#aaa");
+}
+
+function setColorMethod(method, index) {
+    setColor = method;
+    setColorIndex = index;
+    setColor();
+    setButtonColor();
+}
+
+function setColorBySpecies() {
+    setColorInSpecies();
 }
 
 function setColorByCount() {
-    max = d3.max(filtered, d => d.count);
+    filteredMax = d3.max(filtered, d => d.count);
     paths = d3.select("#map").selectAll("path.tract")._groups[0];
     paths.forEach(d => {
         row = filtered.find(e => e.boro_ct2010 == d.__data__.properties.boro_ct2010);
         if (row === undefined) {
             color = undefinedColor;
         } else {
-            color = mapColor(row.count, max);
+            color = mapColor(row.count, filteredMax);
         }
         d.setAttribute("fill", color);
     });
 }
 
 function setColorByDensity() {
-    max = d3.max(filtered.map(d => {
+    filteredMax = d3.max(filtered, d => {
         tract = tracts.find(e => e.properties.boro_ct2010 == d.boro_ct2010);
         return d.count / parseFloat(tract.properties.shape_area);
-    }));
+    });
     paths = d3.select("#map").selectAll("path.tract")._groups[0];
     paths.forEach(d => {
         row = filtered.find(e => e.boro_ct2010 == d.__data__.properties.boro_ct2010);
         if (row === undefined) {
             color = undefinedColor;
         } else {
-            color = mapColor(row.count / parseFloat(d.__data__.properties.shape_area), max);
+            color = mapColor(row.count / parseFloat(d.__data__.properties.shape_area), filteredMax);
         }
         d.setAttribute("fill", color);
     });
@@ -129,64 +151,26 @@ function loadData(dir) {
 
 function showData() {
     formalizeIntro();
+    width = null;
+    height = null;
+    margin = null;
+    bodyWidth = null;
+    bodyHeight = null;
     
-    setColorMethod = setColorByDensity;
+    filtered = filterData();
+    setColor = setColorByDensity;
     container = d3.select("#map");
-    width = container.node().getBoundingClientRect().width;
-    height = container.node().getBoundingClientRect().height;
-    margin = {
-        top: 40,
-        bottom: 10,
-        left: 130,
-        right: 10
-    };
-    bodyWidth = height * 0.5;
-    bodyHeight = height * 0.4;
+    setMarginSpecies();
     drawTop10();
     drawMap();
-    setColorInSpecies();
+    setColor();
     
-    margin = {
-        top: height * 0.4,
-        bottom: 10,
-        left: height * 1.25,
-        right: 200
-    };
-    bodyHeight = height - margin.top - margin.bottom;
-    bodyWidth = bodyHeight / 2;
+    setMarginStreet();
     drawStreetPlot();
     
-    bodyHeight = 200;
-    bodyWidth = 20;
-    margin.top = 200;
-    margin.right = 60;
-    margin.left = width - margin.right - bodyWidth;
-    rangeSize = bodyHeight;
-    rangeArray = [...Array(bodyHeight).keys()];
-    yScale = d3.scaleLinear()
-        .range([0, bodyHeight])
-        .domain([0, 62.38]);
-    // Gradient bar (legend)
-    container.append("g")
-        .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
-        .selectAll(".bar")
-        .data(rangeArray)
-        .enter().append("rect")
-        .attr("y", d => d)
-        .attr("height", 1)
-        .attr("width", bodyWidth)
-        .attr("fill", d => colorRange(d, rangeSize));
-    container.append("g")
-        .style("transform", `translate(${margin.left + bodyWidth}px, ${margin.top}px)`)
-        .call(d3.axisRight(yScale).ticks(5));
-        // text label for the x axis
-    container.append("text")
-        .style("transform", `translate(${margin.left + bodyWidth * 2}px, ${margin.top + bodyHeight * 1.07}px)`)
-        .text("%");
-    container.append("text")
-        .style("transform", `translate(${margin.left + bodyWidth}px, ${margin.top - bodyHeight * 0.07}px)`)
-        .style("text-anchor", "middle")
-        .text("Percent in Row");
+    drawBars();
+    drawButtons();
+    setButtonColor();
     
     container = d3.select("#count");
     width = container.node().getBoundingClientRect().width;
@@ -200,6 +184,32 @@ function showData() {
     bodyHeight = height - margin.top - margin.bottom;
     bodyWidth = width - margin.left - margin.right;
     drawCountByBoro();
+}
+
+function setMarginSpecies() {
+    width = container.node().getBoundingClientRect().width;
+    height = container.node().getBoundingClientRect().height;
+    margin = {
+        top: 40,
+        bottom: 10,
+        left: 130,
+        right: 10
+    };
+    bodyWidth = height * 0.5;
+    bodyHeight = height * 0.4;
+}
+
+function setMarginStreet() {
+    width = container.node().getBoundingClientRect().width;
+    height = container.node().getBoundingClientRect().height;
+    margin = {
+        top: 120,
+        bottom: 120,
+        left: height * 1.25,
+        right: 200
+    };
+    bodyHeight = (height - margin.top) * 0.75;
+    bodyWidth = bodyHeight / 2;
 }
 
 function drawTop10() {
@@ -275,10 +285,6 @@ function drawMap() {
         .on("mouseout", (d, i, paths) => setColorInBars(d, i, paths, false));
 }
 
-function drawButtons() {
-    
-}
-
 function drawStreetPlot() {
     streetSuffixes = percentByStreets.map(d => d["suffix"]);
     // Get unique
@@ -299,8 +305,8 @@ function drawStreetPlot() {
         .attr("height", yScale.bandwidth())
         .attr("x", d => xScale(d.spc_common))
         .attr("width", xScale.bandwidth())
-        .attr("fill", d => colorRange(mapColor(d.percent, percentMax)))
-        .attr("stroke", d => colorRange(mapColor(d.percent, percentMax)))
+        .attr("fill", d => mapColor(d.percent, percentMax))
+        .attr("stroke", d => mapColor(d.percent, percentMax))
         .attr("stroke-width", 0.5);
     container.append("g")
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
@@ -313,6 +319,126 @@ function drawStreetPlot() {
     container.append("g")
         .style("transform", `translate(${margin.left + bodyWidth}px, ${margin.top}px)`)
         .call(d3.axisRight(yScale));
+}
+
+function drawBars(redrawAxis=false) {
+    // Gradient bars (legends)
+    barWidth = 20;
+    barLength = parseInt(height * 0.3);
+    barArray = [...Array(barLength).keys()];
+    
+    setMarginSpecies();
+    yScale = d3.scaleLinear()
+        .range([0, barLength])
+        .domain([0, filteredMax]);
+    if (redrawAxis) {
+    } else {
+        container.append("g")
+            .style("transform", `translate(${margin.top * 2}px, ${height - margin.bottom * 6 - barLength}px)`)
+            .attr("class", "bar-text-species")
+            .selectAll()
+            .data(barArray)
+            .enter().append("rect")
+            .attr("y", d => d)
+            .attr("height", 1)
+            .attr("width", barWidth)
+            .attr("fill", d => mapColor(d, barLength));
+        container.append("text")
+            .style("transform", `translate(${margin.top * 2 + barLength / 2}px, ${height - margin.bottom * 6 - barLength - 20}px)`)
+    }
+    container.append("g")
+        .style("transform", `translate(${margin.top * 2}px, ${height - margin.bottom * 6 - barLength}px)`)
+        .attr("class", "bar-text")
+        .call(d3.axisLeft(yScale));
+    
+    setMarginStreet();
+    xScale = d3.scaleLinear()
+        .range([0, barLength])
+        .domain([0, percentMax]);
+    if (redrawAxis) {
+    } else {
+        container.append("g")
+            .style("transform", `translate(${margin.left}px, ${height - margin.bottom}px)`)
+            .selectAll()
+            .data(barArray)
+            .enter().append("rect")
+            .attr("x", d => d)
+            .attr("width", 1)
+            .attr("height", barWidth)
+            .attr("fill", d => mapColor(d, barLength));
+        container.append("text")
+            .style("transform", `translate(${margin.left + barLength + 10}px, ${height - margin.bottom + barWidth + 20}px)`)
+            .text("%");
+        container.append("text")
+            .style("transform", `translate(${margin.left + barLength / 2 + 5}px, ${height - margin.bottom + barWidth + 40}px)`)
+            .style("text-anchor", "middle")
+            .text("Percent of Species in each Street Suffix (in each Row)");
+    }
+    container.append("g")
+        .style("transform", `translate(${margin.left}px, ${height - margin.bottom + barWidth}px)`)
+        .attr("class", "bar-text")
+        .call(d3.axisBottom(xScale).ticks(5));
+}
+
+function drawButtons() {
+    x = width * 0.33;
+    y = height - 50;
+    pace = 70;
+    for (i = 0; i < 4; i++) {
+        x += pace;
+        container.append("rect")
+            .attr("class", "button" + i)
+            .attr("y", y - 15)
+            .attr("height", 22)
+            .attr("x", x - pace * 0.4)
+            .attr("width", pace * 0.8)
+            .attr("fill", undefinedColor)
+            .on("mouseover", d => setButtonOverColor(i))
+            .on("mouseout", setButtonColor);
+    }
+    d3.select("rect.button3").attr("width", pace * 1.6);
+    
+    x = width * 0.33;
+    container.append("text")
+        .style("transform", `translate(${x}px, ${y}px)`)
+        .style("text-anchor", "middle")
+        .text("Color by:");
+    x += pace;
+    container.append("text")
+        .style("transform", `translate(${x}px, ${y}px)`)
+        .style("text-anchor", "middle")
+        .attr("onclick", "setColorMethod(setColorByDensity, 0)")
+        .attr("cursor", "pointer")
+        .text("Density")
+        .on("mouseover", d => setButtonOverColor(0))
+        .on("mouseout", setButtonColor);
+    x += pace;
+    container.append("text")
+        .style("transform", `translate(${x}px, ${y}px)`)
+        .style("text-anchor", "middle")
+        .attr("onclick", "setColorMethod(setColorByPercent, 1)")
+        .attr("cursor", "pointer")
+        .text("Percent")
+        .on("mouseover", d => setButtonOverColor(1))
+        .on("mouseout", setButtonColor);
+    x += pace;
+    container.append("text")
+        .style("transform", `translate(${x}px, ${y}px)`)
+        .style("text-anchor", "middle")
+        .attr("onclick", "setColorMethod(setColorByCount, 2)")
+        .attr("cursor", "pointer")
+        .text("Count")
+        .on("mouseover", d => setButtonOverColor(2))
+        .on("mouseout", setButtonColor);
+    x += pace * 1.4;
+    container.append("text")
+        .style("transform", `translate(${x}px, ${y}px)`)
+        .style("text-anchor", "middle")
+        .attr("onclick", "setColorMethod(setColorBySpecies, 3)")
+        .attr("cursor", "pointer")
+        .text("Popular Species")
+        .on("mouseover", d => setButtonOverColor(3))
+        .on("mouseout", setButtonColor);
 }
 
 function drawCountByBoro() {
@@ -340,7 +466,7 @@ function drawCountByBoro() {
         .attr("height", d => yScale(0) - yScale(d))
         .attr("x", (d, i) => xScale(boroName[i + 1]))
         .attr("width", xScale.bandwidth())
-        .attr("fill", colorRange(90));
+        .attr("fill", mapColor(90, 100));
     container.append("g")
         .style("transform", `translate(${margin.left}px, ${height - margin.bottom}px)`)
         .call(d3.axisBottom(xScale).ticks(5));
