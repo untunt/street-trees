@@ -185,6 +185,7 @@ function loadData(dir) {
 
 function showData() {
     formalizeIntro();
+    
     width = null;
     height = null;
     margin = null;
@@ -211,8 +212,8 @@ function showData() {
     setButtonColor();
     
     container = d3.select("#count");
-    width = container.node().getBoundingClientRect().width;
-    height = container.node().getBoundingClientRect().height;
+    width = 600;
+    height = 400;
     margin = {
         top: 10,
         bottom: 30,
@@ -221,6 +222,7 @@ function showData() {
     };
     bodyHeight = height - margin.top - margin.bottom;
     bodyWidth = width - margin.left - margin.right;
+    console.log(bodyHeight, bodyWidth)
     drawCountByBoro();
 }
 
@@ -306,6 +308,7 @@ function drawTop10(redraw=false, isMouseOn=false) {
         .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
         .call(d3.axisLeft(yScale));
     container.select(".yScale").selectAll("text")
+        .attr("class", "a-anchor")
         .attr("onclick", (d, i) => `showIntro(${i})`)
         .attr("cursor", "pointer");
 }
@@ -495,6 +498,15 @@ function drawButtons() {
             .text(buttonNames[i])
             .on("mouseover", (d, e, f) => setButtonOverColor(f[0].classList.value))
             .on("mouseout", setButtonColor);
+        if (i != 1) {
+            container.append("text")
+                .attr("class", "a-anchor")
+                .style("transform", `translate(${x}px, ${y + 30}px)`)
+                .style("text-anchor", "middle")
+                .attr("onclick", `showIntro2(${i})`)
+                .attr("cursor", "pointer")
+                .text("View Intro");
+        }
     }
     d3.select("rect.button3").attr("width", pace * 1.6);
 }
@@ -533,27 +545,4 @@ function drawCountByBoro() {
         .call(d3.axisLeft(yScale));
     // Insert the sum into HTML
     document.getElementById("sum").innerHTML = d3.sum(boroCount).toLocaleString();
-}
-
-function formalizeIntro() {
-    // Formalize each line in species intro
-    titles = ["Binomial Name", "Name in Chinese", null, "Date", "Tree ID", "Address", "Trunk Diameter"]
-    for (i = 0; i < 10; i++) {
-        d = document.getElementById("species" + i);
-        ps = d.getElementsByTagName("p");
-        if (ps.length < titles.length) {
-            continue;
-        }
-        newItem = document.createElement("span");
-        newItem.innerHTML = `<a href="#map" class="back-to">Back to the Map</a>`;
-        d.insertBefore(newItem, ps[0]);
-        ps[4].innerHTML = `<a href="https://tree-map.nycgovparks.org/#treeinfo-${ps[4].innerHTML}" title="view this tree in NYC Street Tree Map" target="_blank">${ps[4].innerHTML}</a>`
-        titles.forEach((title, j) => {
-            if (title) {
-                ps[j].innerHTML = "<strong>" + title + ":</strong> " + ps[j].innerHTML;
-            }
-        });
-        ps[6].innerHTML = `${ps[6].innerHTML} inches`;
-    }
-    hideIntro();
 }

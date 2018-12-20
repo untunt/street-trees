@@ -20,20 +20,48 @@ top10Colors.forEach((color, i, colors) => {
     colors[i] = color.brighter(0.4);
 });
 
-
-function hideIntro() {
+function formalizeIntro() {
+    // Formalize each line in species intro
+    titles = ["Binomial Name", "Name in Chinese", null, "Date", "Tree ID", "Address", "Trunk Diameter"]
     for (i = 0; i < 10; i++) {
         d = document.getElementById("species" + i);
-        d.style.display = "none";
+        ps = d.getElementsByTagName("p");
+        if (ps.length < titles.length) {
+            continue;
+        }
+        newItem = document.createElement("span");
+        newItem.innerHTML = `<a href="#map" class="back-to">Back to the Map</a>`;
+        d.insertBefore(newItem, ps[0]);
+        ps[4].innerHTML = `<a href="https://tree-map.nycgovparks.org/#treeinfo-${ps[4].innerHTML}" title="view this tree in NYC Street Tree Map" target="_blank">${ps[4].innerHTML}</a>`
+        titles.forEach((title, j) => {
+            if (title) {
+                ps[j].innerHTML = "<strong>" + title + ":</strong> " + ps[j].innerHTML;
+            }
+        });
+        ps[6].innerHTML = `${ps[6].innerHTML} inches`;
+    }
+    hideIntro();
+}
+
+function hideIntro() {
+    intros = document.getElementsByClassName("intro");
+    for (i = 0; i < intros.length; i++) {
+        intros[i].style.display = "none"
     }
 }
 
 function showIntro(index) {
     hideIntro();
-    d = document.getElementsByClassName("spc-intro-default")[0].style.display = "none";
     d = document.getElementById("species" + index);
     d.style.display = "block";
     jumpToAnchor("species" + index);
+}
+
+function showIntro2(index) {
+    hideIntro();
+    d = document.getElementById("intro" + index);
+    d.style.display = "block";
+    jumpToAnchor("intro" + index);
 }
 
 function jumpToAnchor(anchor) {

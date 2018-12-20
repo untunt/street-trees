@@ -22,36 +22,32 @@
             svg g text {
                 font-size: 1.4em;
             }
-            svg#count {
-                width: 600px;
-                height: 400px;
-            }
             svg#map {
                 width: 1200px;
                 height: 700px;
             }
-            .figure-4 {
-                width: 500px;
-                height: 600px;
+            svg#count {
+                width: 600px;
+                height: 400px;
             }
-            .spc-intro {
+            .intro {
                 margin-top: 2em;
                 display: none;
             }
-            .spc-intro > img {
+            .intro > img {
                 height: 80px;
             }
-            .spc-intro h3 {
+            .intro h3 {
                 display: inline-block;
                 vertical-align: top;
                 height: 80px;
                 line-height: 80px;
                 margin-top: 0;
             }
-            .spc-intro > p {
+            .intro > p {
                 margin: 0;
             }
-            .spc-intro p img {
+            .intro p img {
                 margin-top: 1em;
             }
             .text-align-center {
@@ -61,6 +57,10 @@
             .back-to {
                 float: right;
                 margin-top: 1.5em;
+            }
+            text.a-anchor {
+                fill: #007acc;
+                text-decoration-line: underline;
             }
             
             body {
@@ -137,31 +137,31 @@
             <h1 class="entry-title">StreetTrees!</h1>
             <p class="git"><a href="https://github.com/NYU-VIS-FALL2018/street-trees">github.com/NYU-VIS-FALL2018/street-trees</a></p>
             <p>We walk on streets every day; we are passing street trees every day. Did we notice street trees in NYC? Do we understand street trees in NYC?</p>
-            <h2>How many trees are there?</h2>
-            <figure>
-                <div class="text-align-center">
-                    <svg id="count" class="figure-1"></svg>
-                </div>
-                <figcaption><span class="figure-number">Figure 1.</span><span class="figure-caption-text">Number of Street Trees of each Borough (live trees only)</span></figcaption>
-            </figure>
-            <p>There are totally <span id="sum"></span> live street trees in NYC.</p>
-            <h2>What is the density of trees?</h2>
-            <figure>
-                <figcaption><span class="figure-number">Figure 2.</span><span class="figure-caption-text">Tree Density: number of live street trees divided by the area of tract for each census tract</span></figcaption>
-            </figure>
-            <p>Upper East &amp; West Side has a high street tree density. Several neighborhoods, including Park Slope, Midwood, South Bronx, and Ridgewood also have a high density.</p>
-            <p>Midtown Manhattan has a low street tree density. Greenpoint and Hunters Point (along the boundary between Brooklyn and Queens), northwest of Staten Island, and southwest of Brooklyn (along the beach) also have a low density. Notice that some tracts with a very low density are park spaces and lack of street trees.</p>
-            <h2>What are these trees?</h2>
             <figure>
                 <div class="text-align-center">
                     <svg id="map"></svg>
                 </div>
-                <figcaption><span class="figure-number">Figure 3.</span><span class="figure-caption-text">a) Number of Top 10 Street Tree Species (live trees only)<br>b) Popular Species: species having the largest number in each census tract (only top 10 is shown)</span></figcaption>
             </figure>
-            <div class="spc-intro-default">
-                <p>Click one of species names or bars in <span class="figure-number">Figure 3</span> to view the introduction to that species.</p>
+            <div id="intro2" class="intro">
+                <h2>How many trees are there?</h2>
+                <figure>
+                    <div class="text-align-center">
+                        <svg id="count"></svg>
+                    </div>
+                    <figcaption>Number of Street Trees of each Borough (live trees only)</figcaption>
+                </figure>
+                <p>There are totally <span id="sum"></span> live street trees in NYC.</p>
             </div>
-            <div id="species0" class="spc-intro">
+            <div id="intro0" class="intro">
+                <h2>What is the distribution of trees?</h2>
+                <p>Upper East &amp; West Side has a high street tree density. Several neighborhoods, including Park Slope, Midwood, South Bronx, and Ridgewood also have a high density.</p>
+                <p>Midtown Manhattan has a low street tree density. Greenpoint and Hunters Point (along the boundary between Brooklyn and Queens), northwest of Staten Island, and southwest of Brooklyn (along the beach) also have a low density. Notice that some tracts with a very low density are park spaces and lack of street trees.</p>
+            </div>
+            <div id="intro3" class="intro">
+                <h2>Popular Species</h2>
+                <p>Species having the largest number in each census tract (only top 10 is shown).</p>
+            </div>
+            <div id="species0" class="intro">
                 <img src="https://tree-map.nycgovparks.org/public/images/66603.jpg">
                 <h3>London planetree</h3>
                 <p><i>Platanus</i> × <i>acerifolia</i></p>
@@ -172,7 +172,7 @@
                 <p>65 Cooper Sq, New York</p>
                 <p>18</p>
             </div>
-            <div id="species1" class="spc-intro">
+            <div id="species1" class="intro">
                 <img src="https://tree-map.nycgovparks.org/public/images/38663.jpg">
                 <h3>Honey locust</h3>
                 <p><i>Gleditsia triacanthos</i> var. <i>inermis</i></p>
@@ -183,7 +183,7 @@
                 <p>43 W 61st St, New York</p>
                 <p>11</p>
             </div>
-            <div id="species2" class="spc-intro">
+            <div id="species2" class="intro">
                 <img src="https://tree-map.nycgovparks.org/public/images/71298.jpg">
                 <h3>Callery pear</h3>
                 <p><i>Pyrus calleryana</i></p>
@@ -194,7 +194,7 @@
                 <p>61 Columbus Ave, New York</p>
                 <p>16</p>
             </div>
-            <div id="species3" class="spc-intro">
+            <div id="species3" class="intro">
                 <img src="https://tree-map.nycgovparks.org/public/images/71962.jpg">
                 <h3>Pin oak</h3>
                 <p><i>Quercus palustris</i></p>
@@ -205,7 +205,7 @@
                 <p>135 W 3rd St, New York</p>
                 <p>15 inches</p>
             </div>
-            <div id="species4" class="spc-intro">
+            <div id="species4" class="intro">
                 <img src="https://tree-map.nycgovparks.org/public/images/699.jpg">
                 <h3>Norway maple</h3>
                 <p><i>Acer platanoides</i></p>
@@ -216,7 +216,7 @@
                 <p>365 45th St, Brooklyn</p>
                 <p>11</p>
             </div>
-            <div id="species5" class="spc-intro">
+            <div id="species5" class="intro">
                 <img src="https://tree-map.nycgovparks.org/public/images/86734.jpg">
                 <h3>littleleaf linden</h3>
                 <p><i>Tilia cordata</i></p>
@@ -227,7 +227,7 @@
                 <p>245 Duffield St, Brooklyn</p>
                 <p>6</p>
             </div>
-            <div id="species6" class="spc-intro">
+            <div id="species6" class="intro">
                 <img src="https://tree-map.nycgovparks.org/public/images/92410.jpg">
                 <h3>Japanese flowering cherry</h3>
                 <p><i>Prunus serrulata</i></p>
@@ -238,7 +238,7 @@
                 <p>45 University Plz, Brooklyn</p>
                 <p>5</p>
             </div>
-            <div id="species7" class="spc-intro">
+            <div id="species7" class="intro">
                 <img src="https://tree-map.nycgovparks.org/public/images/92181.jpg">
                 <h3>Japanese zelkova</h3>
                 <p><i>Zelkova serrata</i></p>
@@ -249,7 +249,7 @@
                 <p>24 E 8th St, New York</p>
                 <p>6</p>
             </div>
-            <div id="species8" class="spc-intro">
+            <div id="species8" class="intro">
                 <img src="https://tree-map.nycgovparks.org/public/images/38243.jpg">
                 <h3>Ginkgo</h3>
                 <p><i>Ginkgo biloba</i></p>
@@ -261,7 +261,7 @@
                 <p>449 46th St, Brooklyn</p>
                 <p>15</p>
             </div>
-            <div id="species9" class="spc-intro">
+            <div id="species9" class="intro">
                 <img src="https://tree-map.nycgovparks.org/public/images/83286.jpg">
                 <h3>Sophora (Japanese pagoda tree)</h3>
                 <p><i>Styphnolobium japonicum</i></p>
@@ -272,13 +272,6 @@
                 <p>2 MetroTech Center, New York</p>
                 <p>10</p>
             </div>
-            <h2>Does different kind of streets prefer different tree species?</h2>
-            <figure>
-                <div class="text-align-center">
-                    <svg id="streets" class="figure-4"></svg>
-                </div>
-                <figcaption><span class="figure-number">Figure 4.</span><span class="figure-caption-text">Relationship Between Top 20 Street Suffixes and Top 10 Tree Species: percentage of species on each kind of street</span></figcaption>
-            </figure>
         </div>
     </body>
 </html>
