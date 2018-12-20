@@ -20,15 +20,15 @@ or [a same DEMO on my personal site](https://phesoca.com/street-trees/)
 
 ## Files
 
-[`Project Proposal.pdf`](Project%20Proposal.pdf): The final proposal.
+[`Project Proposal.pdf`](Project%20Proposal.pdf): the final proposal.
 
-[`screenshot.jpg`](screenshot.jpg): The screenshot of 
+[`screenshot.jpg`](screenshot.jpg): the screenshot of the project.
 
 [`d3.js`](d3.js): [D3](https://d3js.org/), v5.7.0.
 
-[`func.js`](func.js): all front-end JavaScript functions for this project.
+[`func.js`](func.js): all JavaScript functions for this project using d3.
 
-[`func2.js`](func2.js): all back-end JavaScript functions for this project.
+[`func2.js`](func2.js): all JavaScript functions for this project without d3.
 
 In [`data`](data),
 
@@ -37,5 +37,11 @@ In [`data`](data),
 [`num_by_ct.csv`](data/num_by_ct.csv): number of street trees in each census tract, divided into 5 status categories (fair, good, poor, deap, stump).
 
 [`num_by_spc.csv`](data/num_by_spc.csv): number of street trees of each species, divided into 5 status categories.
+
+[`num_by_spc&st.csv`](data/num_by_spc&st.csv): number of street trees of each species and street suffix.
+
+[`pct_by_st.csv`](data/pct_by_st.csv): percent of species in each street suffix.
+
+[`pop_by_ct.csv`](data/pop_by_ct.csv): popular species in each tract.
 
 All `.csv` files are extracted/processed by Tableau from the original data set, so that the data is easier for D3 to read.
