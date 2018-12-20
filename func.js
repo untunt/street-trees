@@ -73,7 +73,7 @@ function setColorMethod(index) {
     setColorIndex = index;
     setColor();
     setButtonColor();
-    drawBars(true)
+    drawBars(true);
 }
 
 function setColorBySpecies(highlight=-1, barsOnly=false) {
@@ -222,7 +222,6 @@ function showData() {
     };
     bodyHeight = height - margin.top - margin.bottom;
     bodyWidth = width - margin.left - margin.right;
-    console.log(bodyHeight, bodyWidth)
     drawCountByBoro();
 }
 
@@ -243,7 +242,7 @@ function setMarginStreet() {
     width = container.node().getBoundingClientRect().width;
     height = container.node().getBoundingClientRect().height;
     margin = {
-        top: 120,
+        top: 130,
         bottom: 120,
         left: height * 1.25,
         right: 200
@@ -457,6 +456,10 @@ function drawBars(redraw1=false, redraw2=false, isMouseOn=false) {
             .style("transform", `translate(${margin.left + barLength / 2 + 5}px, ${height - margin.bottom + barWidth + 40}px)`)
             .style("text-anchor", "middle")
             .text("Percent of Species in each Street Suffix (in each Row)");
+        container.append("text")
+            .style("transform", `translate(${width}px, 20px)`)
+            .style("text-anchor", "end")
+            .text("Does different kind of streets prefer different tree species?");
     }
     if (redraw2 || (!redraw1 && !redraw2)) {
         container.append("g")
