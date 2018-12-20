@@ -4,7 +4,7 @@
 
 Group 22
 
-![Screenhot](screenshot.jpg)
+![Screenhot](screenshot.png)
 
 ## About
 
@@ -22,7 +22,7 @@ or [a same DEMO on my personal site](https://phesoca.com/street-trees/)
 
 [`Project Proposal.pdf`](Project%20Proposal.pdf): the final proposal.
 
-[`screenshot.jpg`](screenshot.jpg): the screenshot of the project.
+[`screenshot.png`](screenshot.png): the screenshot of the project.
 
 [`d3.js`](d3.js): [D3](https://d3js.org/), v5.7.0.
 
