@@ -45,9 +45,6 @@ function mapColor(value, max) {
 }
 
 function total(record) {
-    if (record.Fair === undefined) {
-        return record.count;
-    }
     return parseInt(record.Fair) + parseInt(record.Good) + parseInt(record.Poor);
 }
 
