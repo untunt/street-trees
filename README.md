@@ -1,26 +1,18 @@
 # StreetTrees!
 
-**Authors**: Tianheng Wang (tw1701)
-
-Group 22
-
 ![Screenhot](screenshot.png)
 
 ## About
 
 In this project, I tell the story of street trees in NYC, by visualizing multiple features of street trees and their relationship with species, location and street suffixes.
 
-[DEMO on GitHub](https://nyu-vis-fall2018.github.io/street-trees/)
-
-or [a same DEMO on my personal site](https://phesoca.com/street-trees/)
+[DEMO](https://phesoca.com/street-trees/)
 
 ## Data Set
 
 [2015 Street Tree Census](https://data.cityofnewyork.us/Environment/2015-Street-Tree-Census-Tree-Data/uvpi-gqnh) is conducted by volunteers and staff organized by NYC Parks & Recreation and partner organizations. In the data set, there are tree data collected includes tree species, diameter and perception of health.
 
 ## Files
-
-[`Project Proposal.pdf`](Project%20Proposal.pdf): the final proposal.
 
 [`screenshot.png`](screenshot.png): the screenshot of the project.
 
